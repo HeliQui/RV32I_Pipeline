@@ -9,23 +9,24 @@ module ID_stage (
 	output MemReadE, MemWriteE, ALUSrcE, JumpE, RegWriteE, BranchE, MuxjalrE,
 	output [3:0] ALUOpE,
 	output [2:0] ImmControlE, WriteBackE, funct3E,
-	output [31:0] RD1E, RD2E, PCE, RdE, ImmExtE, PCPlus4E
+	output [31:0] RD1E, RD2E, PCE, ImmExtE, PCPlus4E,
+	output [4:0] RdE, Rs1E, Rs2E
 );
 
 	wire MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw;
 	wire [3:0] ALUOpw;
 	wire [2:0] ImmControlw, WriteBackw;
-	wire [31:0] RD1w, RD2w, PCw, Rdw, ImmExtw, PCPlus4w;
+	wire [31:0] RD1w, RD2w, PCw, ImmExtw, PCPlus4w;
 	
 	Control_Unit(funct7, opcode, funct3, MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw, ALUOpw, ImmControlw, WriteBackw);
 	rf_32_32(clk, we3, a3, RdD, a1, a2, RD1w, RD2w);
 	Sign_Extend(in_Extend, ImmControlw, ImmExtw);
 	ID_EX_register(
 		MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw, clk, reset,
-		ALUOpw,ImmControlw, WriteBackw, funct3, RD1w, RD2w, PCw, Rdw, ImmExtw, PCPlus4w,
+		ALUOpw,ImmControlw, WriteBackw, funct3, RD1w, RD2w, PCw, RdD, a1, a2, ImmExtw, PCPlus4w,
 	
 		MemReadE, MemWriteE, ALUSrcE, JumpE, RegWriteE, BranchE, MuxjalrE, ALUOpE,
-		ImmControlE, WriteBackE, funct3E, RD1E, RD2E, PCE, RdE, ImmExtE, PCPlus4E
+		ImmControlE, WriteBackE, funct3E, RD1E, RD2E, PCE, RdE, Rs1E, Rs2E, ImmExtE, PCPlus4E
 	);
 
 endmodule 
