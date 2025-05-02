@@ -13,7 +13,8 @@ module ID_EX_register (
 	always @(posedge clk or negedge reset) begin
 		if (~reset) begin
 			MemReadE <= 0; MemWriteE <= 0; ALUSrcE <= 0; JumpE <= 0; RegWriteE <= 0; BranchE <= 0; MuxjalrE <= 0;
-			ALUOpE <= 4'b0000; ImmControlE <= 3'b000; WriteBackE <= 3'b000;
+			ALUOpE <= 4'b0000; ImmControlE <= 3'b000; WriteBackE <= 3'b000; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
+			RdE <= 32'd0; ImmExtE <= 32'd0; PCPlus4E <= 32'd0;
 		end
 		else begin
 			MemReadE <= MemReadD;
