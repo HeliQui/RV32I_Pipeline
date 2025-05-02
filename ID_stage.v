@@ -8,7 +8,7 @@ module ID_stage (
 	
 	output MemReadE, MemWriteE, ALUSrcE, JumpE, RegWriteE, BranchE, MuxjalrE,
 	output [3:0] ALUOpE,
-	output [2:0] ImmControlE, WriteBackE,
+	output [2:0] ImmControlE, WriteBackE, funct3E,
 	output [31:0] RD1E, RD2E, PCE, RdE, ImmExtE, PCPlus4E
 );
 
@@ -22,10 +22,10 @@ module ID_stage (
 	Sign_Extend(in_Extend, ImmControlw, ImmExtw);
 	ID_EX_register(
 		MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw, clk, reset,
-		ALUOpw,ImmControlw, WriteBackw, RD1w, RD2w, PCw, Rdw, ImmExtw, PCPlus4w,
+		ALUOpw,ImmControlw, WriteBackw, funct3, RD1w, RD2w, PCw, Rdw, ImmExtw, PCPlus4w,
 	
 		MemReadE, MemWriteE, ALUSrcE, JumpE, RegWriteE, BranchE, MuxjalrE, ALUOpE,
-		ImmControlE, WriteBackE, RD1E, RD2E, PCE, RdE, ImmExtE, PCPlus4E
+		ImmControlE, WriteBackE, funct3E, RD1E, RD2E, PCE, RdE, ImmExtE, PCPlus4E
 	);
 
 endmodule 
