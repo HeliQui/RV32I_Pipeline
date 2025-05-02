@@ -1,17 +1,15 @@
 module EX_register (
     input clk,rst_n,
-    //input FlushE,
     input StallE,
-    input memWrite_D, // tín hiệu vào Dmem, cho phép ghi 
-	 input memRead_D, // tín hiệu vào Dmem, cho phép đọc
+    input memWrite_D, 
+    input memRead_D, 
     input regWrite_D,   // tín hiệu vào RF  
     input [1:0] write_back_D,
-    input [3:0] alu_ctrl_D, // alu chỉnh lại là 4 bit opcode 
+    input [3:0] alu_ctrl_D, 
     input alu_srcB_D,
     input jumpReg_D, jump_D, // tín hiệu điều khiển mux4 bên module EX
     input [2:0] branch_D, // tín hiệu xác định loại rẽ nhánh.
-	 input branch0_D, // quyết định có rẽ nhánh hay không
-    //input takenD, bỏ do k sử dụng prediction
+    input branch0_D, // quyết định có rẽ nhánh hay không
     input [31:0] pc_D,
     input [31:0] pc4_D,
     input [31:0] imm_extended_D,
@@ -20,19 +18,18 @@ module EX_register (
     input [4:0]  rs1_D,
     input [4:0]  rs2_D,
     input [4:0]  rd_D,
-    input [2:0]  mode_D, // tương đương với store_sel_D và load_sel_D.
-   // input [2:0]  Bropcode_D, bỏ cái này thay bằng branch_D
+    input [2:0]  mode_D, 
+
 
     output reg  memWrite_E,
-	 output reg  memRead_E,
+    output reg  memRead_E,
     output reg  regWrite_E,
     output reg  [1:0] write_back_E, 
     output reg  [3:0] alu_ctrl_E,
     output reg  alu_srcB_E,
     output reg  jumpReg_E, jump_E,
     output reg  [2:0] branch_E,
-	 output reg branch0_E,
-    //output reg  takenE,
+    output reg branch0_E,
     output reg  [31:0] pc_E,
     output reg  [31:0] pc4_E,
     output reg  [31:0] imm_extended_E,
@@ -42,22 +39,19 @@ module EX_register (
     output reg  [4:0] rs2_E,
     output reg  [4:0] rd_E,
     output reg  [2:0] mode_E
-    //output reg  [2:0] Bropcode_E bỏ thay bằng branch_E
-
 );
     always @(posedge clk) begin
         if (!rst_n) begin 
             memWrite_E <= 0;
-				memRead_E <= 0;
+	    memRead_E <= 0;
             regWrite_E <= 0;
             write_back_E <= 0;
             alu_ctrl_E <= 0;
             alu_srcB_E <= 0;
             jumpReg_E <= 0;
-				jump_E <= 0;
+	    jump_E <= 0;
             branch_E <= 0; // lệnh beq
-				branch0_E <= 0;
-            //takenE <= 0;
+	    branch0_E <= 0;
             pc_E <= 0;
             pc4_E <= 0;
             imm_extended_E <= 0;
@@ -66,21 +60,19 @@ module EX_register (
             rs1_E <= 0;
             rs2_E <= 0;
             rd_E <= 0;   
-				mode_E <= 0;
-          //  Bropcode_E <= 0;    
+	    mode_E <= 0;
         end
         else if (StallE) begin
             memWrite_E <= memWrite_E;
-				memRead_E <= memRead_E;
+	    memRead_E <= memRead_E;
             regWrite_E <= regWrite_E;
             write_back_E <= write_back_E;
             alu_ctrl_E <= alu_ctrl_E;
             alu_srcB_E <= alu_srcB_E;
             jumpReg_E <= jumpReg_E;
-				jump_E <= jump_E;
+	    jump_E <= jump_E;
             branch_E <= branch_E;
-				branch0_E <= branch0_E;
-           // takenE <= takenE;
+	    branch0_E <= branch0_E;
             pc_E <= pc_E;
             pc4_E <= pc4_E;
             imm_extended_E <= imm_extended_E;
@@ -89,21 +81,19 @@ module EX_register (
             rs1_E <= rs1_E;
             rs2_E <= rs2_E;
             rd_E  <= rd_E;   
-				mode_E <= mode_E;
-          //  Bropcode_E <= Bropcode_E;    
+            mode_E <= mode_E;  
         end
         else begin
             memWrite_E <= memWrite_D;
-				memRead_E <= memRead_D;
+	    memRead_E <= memRead_D;
             regWrite_E <= regWrite_D;
             write_back_E <= write_back_D;
             alu_ctrl_E <= alu_ctrl_D;
             alu_srcB_E <= alu_srcB_D;
             jumpReg_E <= jumpReg_D;
-				jump_E <= jump_D;
-            branch_E <= branch_D; // branch_E nối bài alu
-				branch0_E <= branch0_D;
-           // takenE <= takenD;
+	    jump_E <= jump_D;
+            branch_E <= branch_D; 
+	    branch0_E <= branch0_D;
             pc_E <= pc_D;
             pc4_E <= pc4_D;
             imm_extended_E <= imm_extended_D;
@@ -112,9 +102,7 @@ module EX_register (
             rs1_E <= rs1_D;
             rs2_E <= rs2_D;
             rd_E  <= rd_D; 
-				mode_E <= mode_D;
-        
-           // Bropcode_E <= Bropcode_D;
+	    mode_E <= mode_D;
         end
     end
 endmodule
