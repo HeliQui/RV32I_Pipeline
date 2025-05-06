@@ -20,7 +20,7 @@ module Control_Unit (
 		case(opcode)
 			R: begin
 				MuxjalrD <= 0; MemReadD <= 0; MemWriteD <= 0; ALUSrcD <= 0; JumpD <= 0; RegWriteD <= 1; BranchD <= 0;
-				ImmControlD <= 1'bx;
+				ImmControlD <= 3'bxxx;
 				WriteBackD <= 3'b000;
 				if (funct3 == 3'b000) begin
 					if (funct7 == 7'b0000000) ALUOpD <= 4'b0000;
@@ -62,9 +62,7 @@ module Control_Unit (
 						if (funct7 == 7'b0000000) begin
 							ALUOpD <= 4'b0101;
 							ImmControlD <= 3'b010; end
-						end
-					3'b101: begin
-						if (funct7 == 7'b0100000) begin
+						else if (funct7 == 7'b0100000) begin
 							ALUOpD <= 4'b1001;
 							ImmControlD <= 3'b010; end
 						end
@@ -86,8 +84,8 @@ module Control_Unit (
 			end
 			I2: begin
 				if (funct3 == 3'b000) begin
-					MuxjalrD <= 1; MemReadD <= 0; MemWriteD <= 0; ALUSrcD <= 1'bx; JumpD <= 0; RegWriteD <= 1; BranchD <= 0;
-					ALUOpD <= 4'bxxxx;
+					MuxjalrD <= 1; MemReadD <= 0; MemWriteD <= 0; ALUSrcD <= 0; JumpD <= 1; RegWriteD <= 1; BranchD <= 0;
+					ALUOpD <= 4'b0000;
 					ImmControlD <= 3'b000;
 					WriteBackD <= 3'b010;
 				end
@@ -123,7 +121,7 @@ module Control_Unit (
 			end
 			
 			J: begin
-				MemReadD <= 0; MemWriteD <= 0; ALUSrcD <= 0; JumpD <= 1; RegWriteD <= 0; BranchD <= 0; MuxjalrD <= 0;
+				MemReadD <= 0; MemWriteD <= 0; ALUSrcD <= 0; JumpD <= 1; RegWriteD <= 1; BranchD <= 0; MuxjalrD <= 0;
 				ImmControlD <= 3'b110;
 				WriteBackD <= 3'b010;
 				ALUOpD <= 4'bxxxx;
