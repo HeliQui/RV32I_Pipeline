@@ -6,13 +6,14 @@ module rf_32_32 (
 );
 
 	reg [31:0] rf [31:0];
-	
 	always @(posedge clk) begin
 		if (reg_write == 1) begin
 			if (wa != 0)
 				rf[wa] <= data_write;
 		end 
+		rf[0] <= 0;
 		rd1 <= rf[ra1];
 		rd2 <= rf[ra2];
 	end
 endmodule
+
