@@ -6,14 +6,21 @@ module rf_32_32 (
 );
 
 	reg [31:0] rf [31:0];
+	
+	initial begin
+		$readmemh("register_file_init.hex", rf);
+	end
+	
 	always @(posedge clk) begin
 		if (reg_write == 1) begin
 			if (wa != 0)
 				rf[wa] <= data_write;
 		end 
 		rf[0] <= 0;
+	end
+	
+	always @(*) begin
 		rd1 <= rf[ra1];
 		rd2 <= rf[ra2];
 	end
 endmodule
-
