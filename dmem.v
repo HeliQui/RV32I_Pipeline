@@ -32,6 +32,9 @@ module dmem (
 				end
 			endcase 
 		end
+	end
+	
+	always@(*) begin
 		//load
 		if(re) begin
 			case(mode)
