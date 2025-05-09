@@ -1,4 +1,4 @@
-module IF_register (
+module IF_ID_register (
 	input clk, stall, rst,
 	input [31:0] instF, PCF, PCPlus4F,
 	output reg [31:0] instD, PCD, PCPlus4D
