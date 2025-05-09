@@ -1,4 +1,4 @@
-module M_register (
+module EX_M_register (
     input clk,rst_n,
     input regWrite_E, memWrite_E, memRead_E, // dmem có tín hiệu đọc ghi riêng
     input [2:0] resultScr_E, // write_back_E,
