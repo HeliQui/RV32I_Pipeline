@@ -18,10 +18,10 @@ module ID_stage (
 	wire [2:0] ImmControlw, WriteBackw;
 	wire [31:0] RD1w, RD2w, ImmExtw;
 	
-	Control_Unit(funct7, opcode, funct3, MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw, ALUOpw, ImmControlw, WriteBackw);
-	rf_32_32(clk, we3, a3, RdD, a1, a2, RD1w, RD2w);
-	Sign_Extend(in_Extend, ImmControlw, ImmExtw);
-	ID_EX_register(
+	Control_Unit control_unit(funct7, opcode, funct3, MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw, ALUOpw, ImmControlw, WriteBackw);
+	rf_32_32 rf(clk, we3, a3, RdD, a1, a2, RD1w, RD2w);
+	Sign_Extend se(in_Extend, ImmControlw, ImmExtw);
+	ID_EX_register id_ex(
 		MemReadw, MemWritew, ALUSrcw, Jumpw, RegWritew, Branchw, Muxjalrw, clk, reset,
 		ALUOpw,ImmControlw, WriteBackw, funct3, RD1w, RD2w, PCD, RdD, a1, a2, ImmExtw, PCPlus4D,
 	
