@@ -59,7 +59,7 @@ module rv32i_pipeline (
 	
 	ID_EX_register id_ex (
 		.MemReadD(MemReadD), .MemWriteD(MemWriteD), .ALUSrcD(ALUSrcD), .JumpD(JumpD), .RegWriteD(RegWriteD), .BranchD(BranchD), 
-		.MuxjalrD(MuxjalrD), .Stall(Stall), .clk(clk), .reset(Flush),
+		.MuxjalrD(MuxjalrD), .Stall(Stall), .clk(clk), .reset(~Flush),
 		.ALUOpD(ALUControlD),
 		.WriteBackD(ResultSrcD), .funct3D(InstrD[14:12]),
 		.RD1D(RD1D), .RD2D(RD2D), .PCD(PCD), 
