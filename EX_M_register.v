@@ -45,4 +45,4 @@ module EX_M_register (
             pc4_M <= pc4_E;
 				mode_M <= mode_E;
     end
-endmodule
+endmodule 
