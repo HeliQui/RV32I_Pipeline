@@ -12,9 +12,9 @@ module MEM_stage (
 
 	wire [31:0] ReadDataM_wire;
 
-	dmem (clk, MemWriteM, MemReadM, funct3M, ALUResultM [9:0], WriteDataM, ReadDataM_wire);
+	dmem DMEM(clk, MemWriteM, MemReadM, funct3M, ALUResultM [9:0], WriteDataM, ReadDataM_wire);
 	
-	MEM_WB_register (RegWriteM, clk, reset, WriteBackM, ALUResultM, ReadDataM_wire, PCTargetM, ImmExtM, PCPlus4M, RdM,
+	MEM_WB_register mem_wb (RegWriteM, clk, reset, WriteBackM, ALUResultM, ReadDataM_wire, PCTargetM, ImmExtM, PCPlus4M, RdM,
 	RegWriteW, WriteBackW, ALUResultW, ReadDataW, PCTargetW, ImmExtW, PCPlus4W, RdW);
 	
 endmodule 
