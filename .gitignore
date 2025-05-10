@@ -1,3 +1,5 @@
 *.qpf
 *.qsf
 db/
+*.wlf
+work/
