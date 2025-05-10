@@ -1,7 +1,6 @@
 module rv32i_pipeline (
 	input clk, reset,
-	output [31:0] RD1D_check, RD2D_check, ALUResultE_check, ReadDataM_check, ResultW_check, InstrF_check, InstrD_check,
-	output [4:0] RR1D_check, RR2D_check, WAD_check
+	output [31:0] ALUResultE_check, ReadDataM_check, ResultW_check, InstrF_check
 );
 
 	wire PCSrcE;
@@ -36,7 +35,7 @@ module rv32i_pipeline (
 
 
 	//-----------------------IF Stage-------------------------------------------------------------------------------------------
-	PC pc (.clk(clk), .en(Stall), .rst(reset), .addr_in(nextPCF), .addr_out(PCF));
+	PC pc (.clk(clk), .en(~Stall), .rst(reset), .addr_in(nextPCF), .addr_out(PCF));
 	assign nextPCF = (PCSrcE) ? PCTargetE : PCPlus4F;
 	instruction_Mem imem (.addr(PCF), .inst(InstrF));
 	assign PCPlus4F = PCF + 4;
@@ -152,17 +151,10 @@ module rv32i_pipeline (
 	
 	//--------------------------------------------------------------------------------------------------------------------------------------
 	
-	assign RD1D_check = RD1D, 
-	RD2D_check = RD2D, 
-	ALUResultE_check = ALUResultE, 
+	assign ALUResultE_check = ALUResultE, 
 	ReadDataM_check = ReadDataM, 
 	ResultW_check = ResultW, 
-	InstrF_check = InstrF,
-	RR1D_check = InstrD[19:15], 
-	RR2D_check = InstrD[24:20], 
-	WAD_check = RdW,
-	InstrD_check = InstrD;
-	
+	InstrF_check = InstrF;
 
 endmodule 
 	

@@ -4,16 +4,12 @@ module instruction_Mem (
 );
    reg [31:0] i_mem [63:0]; 
 	
-	
-	reg [31:0] address ;
-	
 	initial begin
 		$readmemb ("hex_file.hex", i_mem);
    end
 	 
 	always @(*) begin
-		address = {2'b00, addr[31:2]};
-		inst = i_mem[address];
+		inst = i_mem[addr[31:2]];
 	end
 	 
 endmodule

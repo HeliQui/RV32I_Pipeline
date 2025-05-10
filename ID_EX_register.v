@@ -20,9 +20,7 @@ module ID_EX_register (
 			ALUOpE <= 4'b0000; WriteBackE <= 3'b000; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
 			RdE <= 5'd0; ImmExtE <= 32'd0; PCPlus4E <= 32'd0; funct3E <= 3'b000; Rs1E <= 5'd0; Rs2E <= 5'd0;
 		end
-		else begin
-			if (Stall) begin RegWriteE <= 0; MemWriteE <= 0; end
-			else begin
+		else if(!Stall)begin
 			MemReadE <= MemReadD;
 			MemWriteE <= MemWriteD;
 			ALUSrcE <=  ALUSrcD;
@@ -39,7 +37,27 @@ module ID_EX_register (
 			ImmExtE <= ImmExtD;
 			PCPlus4E <= PCPlus4D;
 			funct3E <= funct3D;
-			Rs1E <= Rs1D; Rs2E <= Rs2D; end
+			Rs1E <= Rs1D; Rs2E <= Rs2D; 
+		end
+		else begin
+			RegWriteE <= 0; MemWriteE <= 0;
+			MemReadE <= MemReadE;
+			ALUSrcE <=  ALUSrcE;
+			JumpE <= JumpE;
+			BranchE <= BranchE;
+			MuxjalrE <= MuxjalrE;
+			ALUOpE <= ALUOpE;
+			WriteBackE <= WriteBackE;
+			RD1E <= RD1E; 
+			RD2E <= RD2E;
+			PCE <= PCE;
+			RdE <= RdE;
+			ImmExtE <= ImmExtE;
+			PCPlus4E <= PCPlus4E;
+			funct3E <= funct3E;
+			Rs1E <= Rs1E; Rs2E <= Rs2E; 
 		end
 	end
 endmodule 
+
+
