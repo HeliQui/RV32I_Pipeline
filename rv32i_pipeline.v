@@ -111,7 +111,7 @@ module rv32i_pipeline (
 	
 	//---------------------MEM Stage---------------------------------------------------------------------------------------------
 	
-	dmem DMEM (.clk(clk), .we(MemWriteM), .re(MemReadM),  .mode(f3E), .addr(ALUResultM[9:0]), .write_data(WriteDataM), .mem_out(ReadDataM));
+	dmem DMEM (.clk(clk), .we(MemWriteM), .re(MemReadM),  .mode(f3M), .addr(ALUResultM[9:0]), .write_data(WriteDataM), .mem_out(ReadDataM));
 	MEM_WB_register mem_wb (
 	.RegWriteM(RegWriteM), .clk(clk), .reset(reset),
 	.WriteBackM(ResultSrcM),
