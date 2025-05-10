@@ -1,6 +1,7 @@
 module rv32i_pipeline (
 	input clk, reset,
-	output [31:0] RD1D_check, RD2D_check, ALUResultE_check, ReadDataM_check, ResultW_check, InstrF_check
+	output [31:0] RD1D_check, RD2D_check, ALUResultE_check, ReadDataM_check, ResultW_check, InstrF_check, InstrD_check,
+	output [4:0] RR1D_check, RR2D_check, WAD_check
 );
 
 	wire PCSrcE;
@@ -39,7 +40,7 @@ module rv32i_pipeline (
 	assign nextPCF = (PCSrcE) ? PCTargetE : PCPlus4F;
 	instruction_Mem imem (.addr(PCF), .inst(InstrF));
 	assign PCPlus4F = PCF + 4;
-	IF_ID_register if_id (.clk(clk), .stall(Stall), .rst(Flush), .instF(InstrF), .PCF(PCF), .PCPlus4F(PCPlus4F), .instD(InstrD), 
+	IF_ID_register if_id (.clk(clk), .stall(Stall), .rst(~Flush), .instF(InstrF), .PCF(PCF), .PCPlus4F(PCPlus4F), .instD(InstrD), 
 	.PCD(PCD), .PCPlus4D(PCPlus4D));
 	
 	
@@ -156,7 +157,12 @@ module rv32i_pipeline (
 	ALUResultE_check = ALUResultE, 
 	ReadDataM_check = ReadDataM, 
 	ResultW_check = ResultW, 
-	InstrF_check = InstrF;
+	InstrF_check = InstrF,
+	RR1D_check = InstrD[19:15], 
+	RR2D_check = InstrD[24:20], 
+	WAD_check = RdW,
+	InstrD_check = InstrD;
+	
 
 endmodule 
 	
