@@ -2,7 +2,7 @@ module hazard_unit (
     input regWrite_M,
     input regWrite_W,
 	 input PCSrc_E,
-    input [1:0] resultSrc_E,
+	input [2:0] resultSrc_E,
     input [4:0] rd_M,
     input [4:0] rd_W,
     input [4:0] rs1_D,
