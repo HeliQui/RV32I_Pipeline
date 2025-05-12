@@ -1,5 +1,5 @@
 module ID_EX_register (
-	input MemReadD, MemWriteD, ALUSrcD, JumpD, RegWriteD, BranchD, MuxjalrD, Stall, clk, reset,
+	input MemReadD, MemWriteD, ALUSrcD, JumpD, RegWriteD, BranchD, MuxjalrD, Stall, clk, reset, flush, 
 	input [3:0] ALUOpD,
 	input [2:0] WriteBackD, funct3D,
 	input [31:0] RD1D, RD2D, PCD, 
@@ -14,8 +14,8 @@ module ID_EX_register (
 	output reg [31:0] ImmExtE, PCPlus4E
 );
 
-	always @(posedge clk or negedge reset) begin
-		if (~reset) begin
+	always @(posedge clk or negedge reset or posedge flush) begin
+		if (~reset || flush) begin
 			MemReadE <= 0; MemWriteE <= 0; ALUSrcE <= 0; JumpE <= 0; RegWriteE <= 0; BranchE <= 0; MuxjalrE <= 0;
 			ALUOpE <= 4'b0000; WriteBackE <= 3'b000; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
 			RdE <= 5'd0; ImmExtE <= 32'd0; PCPlus4E <= 32'd0; funct3E <= 3'b000; Rs1E <= 5'd0; Rs2E <= 5'd0;
