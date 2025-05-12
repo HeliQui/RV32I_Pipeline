@@ -4,7 +4,7 @@ module PC (
 	output reg [31:0] addr_out
 );
 
-	always @(posedge clk) begin
+	always @(posedge clk or negedge rst) begin
 		if(~rst)
 			addr_out <= 32'b0;
 		if(en)
