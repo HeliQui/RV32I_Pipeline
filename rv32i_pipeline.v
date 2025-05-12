@@ -39,7 +39,7 @@ module rv32i_pipeline (
 	assign nextPCF = (PCSrcE) ? PCTargetE : PCPlus4F;
 	instruction_Mem imem (.addr(PCF), .inst(InstrF));
 	assign PCPlus4F = PCF + 4;
-	IF_ID_register if_id (.clk(clk), .stall(Stall), .rst(~Flush), .instF(InstrF), .PCF(PCF), .PCPlus4F(PCPlus4F), .instD(InstrD), 
+	IF_ID_register if_id (.clk(clk), .stall(Stall), .flush(Flush), .instF(InstrF), .PCF(PCF), .PCPlus4F(PCPlus4F), .instD(InstrD), .rst(reset), 
 	.PCD(PCD), .PCPlus4D(PCPlus4D));
 	
 	
@@ -58,7 +58,7 @@ module rv32i_pipeline (
 	
 	ID_EX_register id_ex (
 		.MemReadD(MemReadD), .MemWriteD(MemWriteD), .ALUSrcD(ALUSrcD), .JumpD(JumpD), .RegWriteD(RegWriteD), .BranchD(BranchD), 
-		.MuxjalrD(MuxjalrD), .Stall(Stall), .clk(clk), .reset(~Flush),
+		.MuxjalrD(MuxjalrD), .Stall(Stall), .clk(clk), .reset(reset), .flush(Flush),
 		.ALUOpD(ALUControlD),
 		.WriteBackD(ResultSrcD), .funct3D(InstrD[14:12]),
 		.RD1D(RD1D), .RD2D(RD2D), .PCD(PCD), 
@@ -157,14 +157,3 @@ module rv32i_pipeline (
 	InstrF_check = InstrF;
 
 endmodule 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
