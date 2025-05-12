@@ -32,8 +32,8 @@ module alu (
 		case (branch)
             beq:    Z = (A == B) ;
             bne:    Z = (A != B);
-            blt:    Z = (A < B);
-            bge:    Z = ~(A < B) ;
+            blt:    Z = ($signed(A) < $signed(B));
+            bge:    Z = ~($signed(A) < $signed(B));
             bltu:   Z =  $unsigned(A) < $unsigned(B) ;
             bgeu:   Z = ~($unsigned(A) < $unsigned(B));
             default: Z = 0;
