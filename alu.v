@@ -18,7 +18,7 @@ module alu (
 		case(opcode)
 			0: result <= A + B;
 			1: result <= A << B[4:0];
-			2: result <= (A < B);
+			2: result <= ($signed(A) < $signed(B));
 			3: result <= ($unsigned(A) < $unsigned(B));
 			4: result <= A ^ B;
 			5: result <= A >> B[4:0];
