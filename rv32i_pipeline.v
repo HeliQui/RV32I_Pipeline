@@ -1,6 +1,6 @@
 module rv32i_pipeline (
 	input clk, reset,
-	output [31:0] ALUResultE_check, ReadDataM_check, ResultW_check, InstrF_check
+	output [31:0] ALUResultE_check, ReadDataM_check, ResultW_check, InstrF_check, ttt, rd1e_check, srce_check, pct
 );
 
 	wire PCSrcE;
@@ -51,7 +51,7 @@ module rv32i_pipeline (
 		.ALUOpD(ALUControlD), .ImmControlD(ImmSrc), .WriteBackD(ResultSrcD)
 	);
 	
-	rf_32_32 rf (.clk(clk), .reg_write(RegWriteW),  .data_write(ResultW), .wa(RdW), .ra1(InstrD[19:15]), .ra2(InstrD[24:20]), 
+	rf_32_32 rf (.clk(clk), .reg_write(RegWriteW), .rst(reset), .data_write(ResultW), .wa(RdW), .ra1(InstrD[19:15]), .ra2(InstrD[24:20]), 
 	.rd1(RD1D), .rd2(RD2D));
 	
 	Sign_Extend sign_extend (.inst(InstrD[31:7]), .control(ImmSrc), .imm(ImmExtD));
@@ -89,14 +89,14 @@ module rv32i_pipeline (
 	
 	EX_M_register ex_m (
 		.clk(clk), .rst_n(reset),
-		.regWrite_E(RegWriteE), .memWrite_E(MemWriteE), .memRead_E(MemReadE), // dmem có tín hiệu đọc ghi riêng
+		.regWrite_E(RegWriteE), .memWrite_E(MemWriteE), .memRead_E(MemReadE), // dmem cÃ³ tÃ­n hiá»‡u Ä‘á»c ghi riÃªng
 		.resultScr_E(ResultSrcE), // write_back_E,
 		.alu_rsl_E(ALUResultE),
 		.imm_extended_E(ImmExtE),
 		.write_Data_E(WriteDataE), .PC_target_mux_E(PCTargetE), // 
 		.rd_E(RdE),
 		.pc4_E(PCPlus4E),
-		.mode_E(f3E), // chọn chế độ đọc ghi dmem
+		.mode_E(f3E), // chá»n cháº¿ Ä‘á»™ Ä‘á»c ghi dmem
 
 		.regWrite_M(RegWriteM), .memWrite_M(MemWriteM), .memRead_M(MemReadM),
 		.resultScr_M(ResultSrcM), //write_back_M,
@@ -155,5 +155,8 @@ module rv32i_pipeline (
 	ReadDataM_check = ReadDataM, 
 	ResultW_check = ResultW, 
 	InstrF_check = InstrF;
-
+	assign ttt = InstrD;
+	assign rd1e_check = RD1E;
+	assign srce_check = SrcAE;
+	assign pct = nextPCF;
 endmodule 
