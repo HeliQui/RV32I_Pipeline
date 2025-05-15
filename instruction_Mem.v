@@ -5,7 +5,10 @@ module instruction_Mem (
    reg [31:0] i_mem [63:0]; 
 	
 	initial begin
-		$readmemb ("hex_file.hex", i_mem);
+		//$readmemb ("TestCase/R_I_type.txt", i_mem);
+		//$readmemb ("TestCase/lui_load_store.txt", i_mem);
+		//$readmemb ("TestCase/branch.txt", i_mem);
+		$readmemb ("TestCase/auipc_jal_jalr.txt", i_mem);
    end
 	 
 	always @(*) begin

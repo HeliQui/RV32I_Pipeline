@@ -18,20 +18,20 @@ module hazard_unit (
     wire hazard;
 // forward AE
     always @(*) begin
-        if (regWrite_M && (rd_M == rs1_E)) begin
+        if (regWrite_M && (rd_M != 0) && (rd_M == rs1_E)) begin
             forwardAE <= 2'b10;
         end
-        else if (regWrite_W && (rd_W == rs1_E)) begin         
+        else if (regWrite_W && (rd_M != 0) && (rd_W == rs1_E)) begin         
             forwardAE <= 2'b01;
         end
         else forwardAE <= 2'b00;
     end
 // forward BE
     always @(*) begin
-        if (regWrite_M && (rd_M == rs2_E)) begin
+        if (regWrite_M && (rd_M != 0) && (rd_M == rs2_E)) begin
             forwardBE <= 2'b10;
         end
-        else if (regWrite_W && (rd_W == rs2_E)) begin
+        else if (regWrite_W && (rd_M != 0) && (rd_W == rs2_E)) begin
             forwardBE <= 2'b01;
         end
         else forwardBE <= 2'b00;

@@ -4,8 +4,12 @@ module IF_ID_register (
 	output reg [31:0] instD, PCD
 );
 
-	always @(posedge clk or negedge rst or posedge flush) begin
-		if(!rst || flush) begin
+	always @(posedge clk or negedge rst) begin
+		if(!rst) begin
+			instD <= 0;
+			PCD <= 0;
+		end
+		else if(flush) begin
 			instD <= 0;
 			PCD <= 0;
 		end

@@ -1,11 +1,11 @@
 module EX_M_register (
     input clk,rst_n,
-    input regWrite_E, memWrite_E, memRead_E, // dmem có tín hiệu đọc ghi riêng
+    input regWrite_E, memWrite_E, memRead_E, // dmem c� t�n hi?u ??c ghi ri�ng
     input [2:0] resultScr_E, // write_back_E,
     input [31:0] alu_rsl_E,
     input [31:0] write_Data_E, // 
     input [4:0]  rd_E,
-    input [2:0] mode_E, // chọn chế độ đọc ghi dmem
+    input [2:0] mode_E, // ch?n ch? ?? ??c ghi dmem
 
     output reg regWrite_M, memWrite_M, memRead_M,
     output reg [2:0] resultScr_M, //write_back_M,
