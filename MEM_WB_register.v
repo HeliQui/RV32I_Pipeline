@@ -1,11 +1,11 @@
 module MEM_WB_register (
 	input RegWriteM, clk, reset,
-	input [2:0] WriteBackM,
+	input  WriteBackM,
 	input [31:0] ALUResultM, ReadDataM,
 	input [4:0] RdM,
 	
 	output reg RegWriteW,
-	output reg [2:0] WriteBackW,
+	output reg WriteBackW,
 	output reg [31:0] ALUResultW, ReadDataW,
 	output reg [4:0] RdW
 );

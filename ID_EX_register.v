@@ -7,9 +7,9 @@ module ID_EX_register (
 	input [31:0] ImmExtD,
 	input [1:0] ALUSrcAD, ALUSrcBD,
 	
-	output reg MemReadE, MemWriteE, JumpE, RegWriteE, BranchE, MuxjalrE,
+	output reg MemReadE, MemWriteE, JumpE, RegWriteE, BranchE, MuxjalrE, WriteBackE,
 	output reg [3:0] ALUOpE,
-	output reg [2:0] WriteBackE, funct3E,
+	output reg [2:0] funct3E,
 	output reg [31:0] RD1E, RD2E, PCE, 
 	output reg [4:0] RdE, Rs1E, Rs2E, 
 	output reg [31:0] ImmExtE,
@@ -19,12 +19,12 @@ module ID_EX_register (
 	always @(posedge clk or negedge reset) begin
 		if (~reset) begin
 			MemReadE <= 0; MemWriteE <= 0; JumpE <= 0; RegWriteE <= 0; BranchE <= 0; MuxjalrE <= 0;
-			ALUOpE <= 4'b0000; WriteBackE <= 3'b000; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
+			ALUOpE <= 4'b0000; WriteBackE <= 0; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
 			RdE <= 5'd0; ImmExtE <= 32'd0; funct3E <= 3'b000; Rs1E <= 5'd0; Rs2E <= 5'd0; ALUSrcAE = 2'd0; ALUSrcBE = 2'd0;
 		end
 		else if(flush) begin
 			MemReadE <= 0; MemWriteE <= 0; JumpE <= 0; RegWriteE <= 0; BranchE <= 0; MuxjalrE <= 0;
-			ALUOpE <= 4'b0000; WriteBackE <= 3'b000; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
+			ALUOpE <= 4'b0000; WriteBackE <= 0; RD1E <= 32'd0; RD2E <= 32'd0; PCE <= 32'd0;
 			RdE <= 5'd0; ImmExtE <= 32'd0; funct3E <= 3'b000; Rs1E <= 5'd0; Rs2E <= 5'd0; ALUSrcAE = 2'd0; ALUSrcBE = 2'd0;
 		end
 		else if(!Stall)begin

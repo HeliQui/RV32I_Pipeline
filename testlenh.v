@@ -6,7 +6,7 @@ module testlenh ();
 	wire [4:0] Rs1D_check, Rs2D_check, RdD_check, RdE_check, RdM_check, RdW_check;
 	wire [31:0] PCD_check, RD1E_check, RD2E_check, SrcAE_check, SrcBE_check, WriteDataE_check;
 	wire [31:0] PCTargetE_check;
-	wire [2:0] ResultSrcD_check, ResultSrcE_check, ResultSrcM_check, ResultSrcW_check;
+	wire ResultSrcD_check, ResultSrcE_check, ResultSrcM_check, ResultSrcW_check;
 	wire RegWriteD_check, RegWriteE_check, RegWriteM_check, RegWriteW_check;
 	wire MemReadD_check, MemReadE_check, MemReadM_check;
 	wire MemWriteD_check, MemWriteE_check, MemWriteM_check;
@@ -54,7 +54,7 @@ module testlenh ();
 
         #50 reset = 1;
 
-        #3000;
+        #1000;
         f = $fopen("regfile_output.txt", "w");
         for (i = 0; i < 32; i = i + 1)
             $fdisplay(f, "x%0d = 0x%08h", i, rvp.rf.rf[i]);

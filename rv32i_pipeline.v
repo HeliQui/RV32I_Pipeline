@@ -4,7 +4,7 @@ module rv32i_pipeline (
 	output [4:0] Rs1D_check, Rs2D_check, RdD_check, RdE_check, RdM_check, RdW_check,
 	output [31:0] PCD_check, RD1E_check, RD2E_check, SrcAE_check, SrcBE_check, WriteDataE_check,
 	output [31:0] PCTargetE_check, //PCTargetM_check,
-	output [2:0] ResultSrcD_check, ResultSrcE_check, ResultSrcM_check, ResultSrcW_check,
+	output ResultSrcD_check, ResultSrcE_check, ResultSrcM_check, ResultSrcW_check,
 	output RegWriteD_check, RegWriteE_check, RegWriteM_check, RegWriteW_check,
 	output MemReadD_check, MemReadE_check, MemReadM_check,
 	output MemWriteD_check, MemWriteE_check, MemWriteM_check,
@@ -35,10 +35,10 @@ module rv32i_pipeline (
 	wire [4:0] RdW;
 	wire [1:0] ALUSrcAD, ALUSrcBD, ALUSrcAE, ALUSrcBE;
 	
-	wire Stall, Flush, MemReadE, MemWriteE, JumpE, BranchE, ALUSrcE, MuxjalrE; 
-	wire [2:0] ResultSrcE, f3E;
+	wire Stall, Flush, MemReadE, MemWriteE, JumpE, BranchE, ALUSrcE, MuxjalrE, ResultSrcE;
+	wire [2:0] f3E;
 	wire [3:0] ALUControlE;
-	wire [31:0] RD1E, RD2E, ImmExtE, PCPlus4E, PCE;
+	wire [31:0] RD1E, RD2E, ImmExtE, PCE;
 	wire [4:0] Rs1E, Rs2E, RdE;
 	
 	wire FlagE;
@@ -48,12 +48,12 @@ module rv32i_pipeline (
 	wire [31:0] PC_RS1;
 	
 	wire RegWriteM, MemReadM, MemWriteM;
-	wire [2:0] ResultSrcM, f3M;
-	wire [31:0] WriteDataM, PCTargetM, ImmExtM, PCPlus4M, ReadDataM;
+	wire [2:0] f3M;
+	wire [31:0] WriteDataM, ReadDataM;
 	wire [4:0] RdM;
 	
-	wire [2:0] ResultSrcW;
-	wire [31:0] ALUResultW, ReadDataW, PCTargetW, ImmExtW, PCPlus4W;
+	wire ResultSrcW, ResultSrcM;
+	wire [31:0] ALUResultW, ReadDataW;
 
 
 	//-----------------------IF Stage-------------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ module rv32i_pipeline (
 	
 	ID_EX_register id_ex (
 		.MemReadD(MemReadD), .MemWriteD(MemWriteD), .ALUSrcAD(ALUSrcAD), .ALUSrcBD(ALUSrcBD), .JumpD(JumpD), .RegWriteD(RegWriteD), .BranchD(BranchD), 
-		.MuxjalrD(MuxjalrD), .Stall(Stall), .clk(clk), .reset(reset), .flush(Flush),
+		.MuxjalrD(MuxjalrD), .Stall(1'b0), .clk(clk), .reset(reset), .flush(Flush),
 		.ALUOpD(ALUControlD),
 		.WriteBackD(ResultSrcD), .funct3D(InstrD[14:12]),
 		.RD1D(RD1D), .RD2D(RD2D), .PCD(PCD), 

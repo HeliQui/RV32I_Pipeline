@@ -2,7 +2,7 @@ module hazard_unit (
     input regWrite_M,
     input regWrite_W,
 	 input PCSrc_E,
-	input [2:0] resultSrc_E,
+	input resultSrc_E,
     input [4:0] rd_M,
     input [4:0] rd_W,
     input [4:0] rs1_D,
@@ -15,7 +15,6 @@ module hazard_unit (
     output stall,
     output flush
 );
-    wire hazard;
 // forward AE
     always @(*) begin
         if (regWrite_M && (rd_M != 0) && (rd_M == rs1_E)) begin
@@ -37,7 +36,6 @@ module hazard_unit (
         else forwardBE <= 2'b00;
     end
 // Load hazard
-    assign hazard = ((resultSrc_E == 2'b01) && ((rs1_D == rd_E) || (rs2_D == rd_E))) ? 1 : 0;
-    assign stall = hazard;
+    assign stall = ((resultSrc_E == 1'b1) && ((rs1_D == rd_E) || (rs2_D == rd_E))) ? 1'b1 : 1'b0;
     assign flush = PCSrc_E;
 endmodule
